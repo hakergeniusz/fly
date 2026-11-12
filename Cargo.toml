@@ -1,0 +1,12 @@
+[package]
+name = "horizon-fly"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "Survival flight: a key toggles creative-style flight anywhere. A Horizon native mod."
+publish = false
+
+# The runtime doubles as the mod's library (its tests) and the module the
+# bundle injects into the game; the helper files compile only inside it.
+[lib]
+path = "mixins/fly/runtime.rs"
