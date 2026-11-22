@@ -1,0 +1,27 @@
+id = "fly"
+name = "Fly"
+version = "0.2.0"
+description = "Survival flight: press your fly key (R) to toggle creative-style flight anywhere, and again to land. The flight stays on through mode changes until you toggle it off."
+authors = ["hakergeniusz"]
+license = "MIT"
+api = "0.2"
+side = "client"
+capabilities = ["registries"]
+
+[native]
+game = "26.3"
+horizon = "f037744a79f9982c47876f49c5a3067279f88706"
+mixins = "e59da9094f0c2fdda6c627fe9eff22dec6a906f0"
+
+# Every tick, on the window's Game only: the toggle's click is polled from
+# the registered `toggle` key mapping and the flight grant is re-asserted.
+# The tick_pre hook itself is implemented in src/lib.rs so this dispatch
+# always runs.
+[[native.mixin]]
+id = "tick"
+target = "horizon_client::game::native_hooks::client_tick_pre::Game<'_>::native_client_tick_pre"
+kind = "HEAD"
+helper = "src/mixins/tick.rs"
+bindings = [
+  { name = "game", ty = "&mut crate::game::Game<'_>", value = "&mut *self" },
+]
